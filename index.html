@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oneflow — Unified Multi-Currency Treasury & Cross-Border API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-code { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#05070E] text-slate-100 antialiased selection:bg-emerald-500 selection:text-black">
+
+  <header class="fixed top-0 inset-x-0 z-50 bg-[#05070E]/80 backdrop-blur-xl border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center font-black text-black text-sm">1F</div>
+        <span class="text-xl font-bold tracking-tight">ONEFLOW<span class="text-emerald-400">.</span></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <a href="#fx-calculator" class="hover:text-emerald-400 transition">FX Calculator</a>
+        <a href="#developer" class="hover:text-emerald-400 transition">Developer API</a>
+        <a href="#treasury" class="hover:text-emerald-400 transition">Global Treasury</a>
+      </nav>
+      <a href="#fx-calculator" class="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition">
+        Open Corporate Account
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-36 pb-20 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6 text-center space-y-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-code uppercase">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Direct Clearing in 48 Currencies • 0.15% Spread
+      </div>
+      <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight">
+        Send, hold, and settle billions with <span class="text-emerald-400">zero intermediary drag.</span>
+      </h1>
+      <p class="text-slate-400 text-base max-w-2xl mx-auto leading-relaxed">
+        Oneflow replaces correspondent banking lag with real-time gross settlement rails. Access virtual IBANs, multi-currency debit programs, and programmable payouts via REST API.
+      </p>
+
+      <div class="pt-6 flex justify-center gap-4">
+        <a href="#fx-calculator" class="px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition">Compare FX Rates</a>
+        <a href="#developer" class="px-8 py-3.5 rounded-xl border border-slate-800 hover:border-slate-700 font-code text-xs uppercase tracking-wider transition">View API Docs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Real-Time FX Converter -->
+  <section id="fx-calculator" class="py-24 bg-[#080B15] border-y border-slate-800">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-xs font-code uppercase text-emerald-400">Live Exchange Rates</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold">Real-Time Currency Arbitrage Calculator</h2>
+      </div>
+
+      <div class="p-8 sm:p-10 rounded-3xl bg-[#05070E] border border-slate-800 shadow-2xl space-y-6">
+        <div class="grid sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">You Send (Amount & Currency)</label>
+            <div class="flex gap-2">
+              <input type="number" id="sendAmt" value="50000" oninput="calcFX()" class="flex-1 px-4 py-3 bg-[#0D1120] border border-slate-800 rounded-xl text-lg font-code font-bold text-emerald-400 focus:outline-none">
+              <select id="sendCurr" onchange="calcFX()" class="px-4 py-3 bg-[#0D1120] border border-slate-800 rounded-xl text-sm font-code font-bold">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Recipient Receives</label>
+            <div class="flex gap-2">
+              <div id="recvAmt" class="flex-1 px-4 py-3 bg-[#0D1120] border border-slate-800 rounded-xl text-lg font-code font-bold text-white flex items-center">
+                €46,250.00
+              </div>
+              <select id="recvCurr" onchange="calcFX()" class="px-4 py-3 bg-[#0D1120] border border-slate-800 rounded-xl text-sm font-code font-bold">
+                <option value="EUR">EUR (€)</option>
+                <option value="USD">USD ($)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-900/50 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-300 gap-2">
+          <span>Traditional Legacy Bank Fee: <strong class="text-rose-400 line-through">$1,850 (3.7%)</strong></span>
+          <span class="text-emerald-400 font-bold">Oneflow Transparent Fee: $75.00 (0.15%) • You save $1,775</span>
+        </div>
+
+        <button onclick="alert('Proceeding to instant corporate KYC verification.')" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition">
+          Initiate Real-Time Transfer
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer API Playground -->
+  <section id="developer" class="py-24 max-w-5xl mx-auto px-6">
+    <div class="text-center space-y-3 mb-12">
+      <span class="text-xs font-code uppercase text-emerald-400">Developer First</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold">Single API Call for Global Payouts</h2>
+    </div>
+
+    <div class="rounded-3xl bg-[#090C17] border border-slate-800 overflow-hidden shadow-2xl">
+      <div class="px-6 py-4 bg-[#05070E] border-b border-slate-800 flex items-center justify-between text-xs font-code text-slate-400">
+        <div class="flex gap-2 items-center">
+          <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+          <span class="ml-2 font-bold text-slate-200">POST /v1/transfers</span>
+        </div>
+        <span class="text-emerald-400">Status 200 OK</span>
+      </div>
+      <pre class="p-6 text-xs sm:text-sm font-code text-slate-300 overflow-x-auto leading-relaxed">
+<code>curl https://api.oneflow.finance/v1/payouts \
+  -H "Authorization: Bearer sec_live_9f823a8bc721" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source_account": "acc_corporate_usd_01",
+    "destination": {
+      "iban": "DE89370400440532013000",
+      "currency": "EUR"
+    },
+    "amount": 5000000,
+    "settlement_rail": "SEPA_INSTANT",
+    "reference": "INVOICE-8942-PAYROLL"
+  }'</code></pre>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-800 py-12 text-center text-xs text-slate-500 font-code">
+    <p>© 2026 Oneflow Global Payments Ltd. Authorized Electronic Money Institution.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    const rates = {
+      USD: { EUR: 0.925, GBP: 0.79, JPY: 154.2, USD: 1.0 },
+      EUR: { USD: 1.08, GBP: 0.85, JPY: 166.7, EUR: 1.0 },
+      GBP: { USD: 1.26, EUR: 1.17, JPY: 195.1, GBP: 1.0 }
+    };
+
+    function calcFX() {
+      const amt = parseFloat(document.getElementById('sendAmt').value) || 0;
+      const src = document.getElementById('sendCurr').value;
+      const dst = document.getElementById('recvCurr').value;
+
+      const rate = rates[src] ? rates[src][dst] || 1.0 : 1.0;
+      const result = (amt * rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      document.getElementById('recvAmt').textContent = result + ' ' + dst;
+    }
+  </script>
+</body>
+</html>
